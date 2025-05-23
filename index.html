@@ -1,16 +1,229 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <title>LikeVPS Баннер</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Карусель баннеров LikeVPS</title>
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@500&display=swap" rel="stylesheet">
   <style>
-    body { margin: 0; padding: 0; }
-    img { display: block; max-height: 150px; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Rubik', sans-serif; }
+
+    .carousel {
+      position: relative;
+      max-width: 100%;
+      overflow: hidden;
+      max-height: 220px;
+    }
+
+    .slides {
+      display: flex;
+      transition: transform 0.6s ease-in-out;
+    }
+
+    .slide {
+      flex: 0 0 100%;
+      text-align: center;
+      padding: 10px;
+    }
+
+    .banner-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+      background-image: url('./image1.png');
+      background-size: cover;
+      background-position: center;
+      height: 200px;
+      padding: 20px;
+      color: white;
+      text-shadow: 0 0 4px rgba(0,0,0,0.6);
+      border-radius: 10px;
+    }
+
+    .banner-content {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      padding-right: 140px;
+    }
+
+    .banner-left {
+      flex: 1;
+      min-width: 0;
+      text-align: left;
+      font-size: 20px;
+      font-weight: bold;
+      padding-right: 15px; /* Уменьшили отступ справа */
+    }
+
+    .banner-image {
+      flex-shrink: 0;
+      width: 280px;
+      height: 280px;
+      object-fit: contain;
+      margin-right: 150px; /* Уменьшили отступ справа */
+      margin-left: 0; /* Убрали автоматический отступ слева */
+    }
+
+    .subscribe-btn {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      display: inline-block;
+      padding: 14px 26px;
+      background-color: #2199abfa;
+      color: white;
+      font-size: 18px;
+      font-weight: bold;
+      text-decoration: none;
+      border-radius: 10px;
+      transition: background-color 0.3s ease;
+    }
+
+    .subscribe-btn:hover {
+      background-color: #2199ab95;
+    }
+
+    .pagination {
+      position: absolute;
+      bottom: 8px;
+      width: 100%;
+      text-align: center;
+    }
+
+    .dot {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      margin: 0 4px;
+      background-color: #bbb;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .dot.active {
+      background-color: #717171;
+    }
+
+    @media (max-width: 600px) {
+      .banner-left {
+        font-size: 16px;
+        padding-right: 10px; /* Уменьшили еще больше для мобильных */
+      }
+
+      .subscribe-btn {
+        font-size: 16px;
+        padding: 12px 20px;
+      }
+
+      .banner-image {
+        width: 60px;
+        height: 60px;
+        margin-right: 5px; /* Минимальный отступ для мобильных */
+      }
+      
+      .banner-content {
+        padding-right: 120px;
+      }
+    }
   </style>
 </head>
 <body>
-  <a href="https://likevps.net/blog" target="_blank">
-    <img src="./image.png" alt="баннер LikeVPS">
-  </a>
+
+<div class="carousel" id="carousel">
+  <div class="slides" id="slides">
+    
+    <!-- Баннер 1 -->
+    <div class="slide" id="banner1">
+      <div class="banner-wrapper">
+        <div class="banner-content">
+          <div class="banner-left">Будьте в курсе новостей и скидок — подпишитесь на наш Telegram-канал</div>
+          <img class="banner-image" src="./картинка.png" alt="Дополнительная картинка" />
+        </div>
+        <a class="subscribe-btn" href="http://t.me/likevps" target="_blank">Подписаться</a>
+      </div>
+    </div>
+
+    <!-- Баннер 2 -->
+    <div class="slide" id="banner2">
+      <a href="https://likevps.net/vps" target="_blank">
+        <img src="./image2.png" alt="Баннер 2" />
+      </a>
+    </div>
+
+  </div>
+  <div class="pagination" id="pagination"></div>
+</div>
+
+<script>
+  const slidesContainer = document.getElementById('slides');
+  const pagination = document.getElementById('pagination');
+  const banner2 = document.querySelector('#banner2 img');
+  let index = 0;
+  let interval;
+
+  banner2.addEventListener('error', () => {
+    document.getElementById('banner2')?.remove();
+    initCarousel();
+  });
+
+  if (banner2.complete) {
+    if (!banner2.naturalWidth) {
+      document.getElementById('banner2')?.remove();
+    }
+    initCarousel();
+  } else {
+    banner2.addEventListener('load', initCarousel);
+  }
+
+  function updateSlidePosition() {
+    slidesContainer.style.transform = `translateX(-${index * 100}%)`;
+    const dots = document.querySelectorAll('.dot');
+    dots.forEach((dot, i) => {
+      dot.classList.toggle('active', i === index);
+    });
+  }
+
+  function createPagination(totalSlides) {
+    pagination.innerHTML = '';
+    if (totalSlides <= 1) {
+      pagination.style.display = 'none';
+      return;
+    }
+    pagination.style.display = 'block';
+
+    for (let i = 0; i < totalSlides; i++) {
+      const dot = document.createElement('span');
+      dot.classList.add('dot');
+      if (i === 0) dot.classList.add('active');
+      dot.addEventListener('click', () => {
+        index = i;
+        updateSlidePosition();
+      });
+      pagination.appendChild(dot);
+    }
+  }
+
+  function startCarousel(totalSlides) {
+    if (interval) clearInterval(interval);
+    if (totalSlides <= 1) return;
+
+    interval = setInterval(() => {
+      index = (index + 1) % totalSlides;
+      updateSlidePosition();
+    }, 5000);
+  }
+
+  function initCarousel() {
+    const totalSlides = slidesContainer.children.length;
+    index = 0;
+    createPagination(totalSlides);
+    updateSlidePosition();
+    startCarousel(totalSlides);
+  }
+</script>
+
 </body>
 </html>
