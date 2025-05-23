@@ -11,9 +11,10 @@
 
     .carousel {
       position: relative;
-      max-width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
       overflow: hidden;
-      max-height: 220px;
+      max-height: 180px;
     }
 
     .slides {
@@ -24,7 +25,7 @@
     .slide {
       flex: 0 0 100%;
       text-align: center;
-      padding: 10px;
+      padding: 8px;
     }
 
     .banner-wrapper {
@@ -34,7 +35,7 @@
       background-image: url('./image1.png');
       background-size: cover;
       background-position: center;
-      height: 200px;
+      height: 164px; /* 180px - 2*8px padding */
       padding: 20px;
       color: white;
       text-shadow: 0 0 4px rgba(0,0,0,0.6);
@@ -45,7 +46,8 @@
       display: flex;
       align-items: center;
       width: 100%;
-      padding-right: 140px;
+      height: 100%;
+      padding-right: 160px; /* Место для кнопки */
     }
 
     .banner-left {
@@ -54,16 +56,18 @@
       text-align: left;
       font-size: 20px;
       font-weight: bold;
-      padding-right: 15px; /* Уменьшили отступ справа */
+      padding-right: 20px;
+      height: 100%;
+      display: flex;
+      align-items: center;
     }
 
     .banner-image {
       flex-shrink: 0;
-      width: 280px;
-      height: 280px;
+      width: 124px; /* 280px не помещалось */
+      height: 124px;
       object-fit: contain;
-      margin-right: 150px; /* Уменьшили отступ справа */
-      margin-left: 0; /* Убрали автоматический отступ слева */
+      margin-right: 20px;
     }
 
     .subscribe-btn {
@@ -71,13 +75,13 @@
       bottom: 20px;
       right: 20px;
       display: inline-block;
-      padding: 14px 26px;
+      padding: 10px 20px;
       background-color: #2199abfa;
       color: white;
-      font-size: 18px;
+      font-size: 16px;
       font-weight: bold;
       text-decoration: none;
-      border-radius: 10px;
+      border-radius: 8px;
       transition: background-color 0.3s ease;
     }
 
@@ -87,7 +91,7 @@
 
     .pagination {
       position: absolute;
-      bottom: 8px;
+      bottom: 12px;
       width: 100%;
       text-align: center;
     }
@@ -107,25 +111,61 @@
       background-color: #717171;
     }
 
-    @media (max-width: 600px) {
+    @media (max-width: 768px) {
+      .banner-wrapper {
+        height: 140px;
+        padding: 15px;
+      }
+      
       .banner-left {
         font-size: 16px;
-        padding-right: 10px; /* Уменьшили еще больше для мобильных */
+        padding-right: 15px;
       }
 
+      .banner-image {
+        width: 80px;
+        height: 80px;
+        margin-right: 15px;
+      }
+      
+      .banner-content {
+        padding-right: 130px;
+      }
+      
       .subscribe-btn {
-        font-size: 16px;
-        padding: 12px 20px;
+        padding: 8px 16px;
+        font-size: 14px;
+        bottom: 15px;
+        right: 15px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .banner-wrapper {
+        height: 120px;
+        padding: 10px;
+      }
+      
+      .banner-left {
+        font-size: 14px;
+        padding-right: 10px;
       }
 
       .banner-image {
         width: 60px;
         height: 60px;
-        margin-right: 5px; /* Минимальный отступ для мобильных */
+        margin-right: 10px;
       }
       
       .banner-content {
-        padding-right: 120px;
+        padding-right: 110px;
+      }
+      
+      .subscribe-btn {
+        padding: 6px 12px;
+        font-size: 12px;
+        bottom: 10px;
+        right: 10px;
       }
     }
   </style>
@@ -149,7 +189,7 @@
     <!-- Баннер 2 -->
     <div class="slide" id="banner2">
       <a href="https://likevps.net/vps" target="_blank">
-        <img src="./image2.png" alt="Баннер 2" />
+        <img src="./image2.png" alt="Баннер 2" style="max-height: 164px; width: auto; margin: 0 auto; display: block;" />
       </a>
     </div>
 
@@ -223,6 +263,8 @@
     updateSlidePosition();
     startCarousel(totalSlides);
   }
+
+  initCarousel();
 </script>
 
 </body>
