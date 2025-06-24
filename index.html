@@ -11,10 +11,10 @@
 
     .carousel {
       position: relative;
-      max-width: 1150px; /* Уменьшено с 1200px */
       margin: 0 auto;
       overflow: hidden;
-      max-height: 150px; /* Уменьшено с 180px */
+      max-height: 150px;
+      width: 100%;
     }
 
     .slides {
@@ -25,21 +25,30 @@
     .slide {
       flex: 0 0 100%;
       text-align: center;
-      padding: 6px; /* Уменьшено с 8px */
+      padding: 6px;
     }
 
     .banner-wrapper {
       position: relative;
       display: flex;
       align-items: center;
-      background-image: url('/bglk1.png');
       background-size: cover;
       background-position: center;
-      height: 138px; /* 150px - 2*6px padding */
-      padding: 15px; /* Уменьшено с 20px */
+      height: 138px;
+      padding: 15px;
       color: white;
       text-shadow: 0 0 4px rgba(0,0,0,0.6);
-      border-radius: 8px; /* Уменьшено с 10px */
+      border-radius: 8px;
+      overflow: hidden;
+      width: 100%;
+    }
+
+    .banner1-bg {
+      background-image: url('/bglk1.png');
+    }
+
+    .banner2-bg {
+      background-image: url('/bglk2.png');
     }
 
     .banner-content {
@@ -47,42 +56,215 @@
       align-items: center;
       width: 100%;
       height: 100%;
-      padding-right: 140px; /* Уменьшено с 160px */
+      padding-right: 140px;
     }
 
-    .banner-left {
-      flex: 1;
-      max-width: 600px;
-      min-width: 0;
-      text-align: left;
-      font-size: 18px; /* Уменьшено с 20px */
-      font-weight: bold;
-      padding-right: 15px; /* Уменьшено с 20px */
-      height: 100%;
+    .banner-content-bonus {
+      justify-content: space-between;
+      padding-right: 0 !important;
+      gap: 15px;
+    }
+
+    .hackbonus-block {
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 1.45;
+      color: #fff;
+      padding: 0;
+      margin: 0;
+      width: 100%;
+    }
+
+    .hackbonus-title {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 12px;
       display: flex;
       align-items: center;
+      justify-content: center;
+      gap: 8px;
+      white-space: nowrap;
+      width: 100%;
+      text-align: center;
+    }
+
+    .hackbonus-label {
+      color: #7eefff;
+      background: rgba(33,153,171,0.13);
+      padding: 2px 10px;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      display: inline-block;
+      margin-left: 7px;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    .hackbonus-list {
+      list-style: none;
+      margin: 10px 0 0 0;
+      padding: 0;
+    }
+
+    .hackbonus-list li {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      margin-bottom: 3px;
+    }
+
+    .hackbonus-point {
+      color: #7eefff;
+      font-weight: 700;
+    }
+
+    .hackbonus-emoji {
+      font-size: 18px;
+      margin-right: 3px;
+      line-height: 1;
+    }
+
+    .banner-image-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 150px;
+      width: 150px;
+      position: relative;
+      perspective: 600px;
+      cursor: pointer;
+      overflow: hidden;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .banner-image-link .banner-imagebonus {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      transition:
+        transform 0.22s cubic-bezier(.4,2,.6,1),
+        box-shadow 0.22s cubic-bezier(.4,2,.6,1),
+        filter 0.22s cubic-bezier(.4,2,.6,1);
+      will-change: transform, box-shadow, filter;
+      border-radius: 50%;
+      box-shadow:
+        0 4px 12px 0 rgba(0,0,0,0.13),
+        0 1px 4px 0 rgba(0,0,0,0.08);
+      background: transparent;
+      position: relative;
+      z-index: 1;
+      animation: bonusPulse 1.7s infinite;
+      max-width: 100%;
+      max-height: 100%;
+      display: block;
+    }
+
+    @keyframes bonusPulse {
+      0% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(0,255,195,0.55);
+      }
+      70% {
+        transform: scale(1.06);
+        box-shadow: 0 0 16px 8px rgba(0,255,195,0.18);
+      }
+      100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(0,255,195,0.06);
+      }
+    }
+
+    .banner-image-link:hover .banner-imagebonus,
+    .banner-image-link:focus .banner-imagebonus {
+      animation: none;
+      transform: scale(1.12) rotateY(8deg) rotateX(-3deg);
+      box-shadow:
+        0 6px 18px 0 rgba(0,255,150,0.13),
+        0 1px 4px 0 rgba(0,0,0,0.12);
+      filter: brightness(1.15) drop-shadow(0 0 12px #00ffae99);
+    }
+
+    .banner-image-link::before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 75%;
+      height: 75%;
+      transform: translate(-50%, -50%) rotate(25deg);
+      border-radius: 50%;
+      background: linear-gradient(120deg, #fff0 60%, #00ffc3 100%);
+      opacity: 0.0;
+      pointer-events: none;
+      z-index: 2;
+      transition: opacity 0.3s;
+    }
+
+    .banner-image-link:hover::before {
+      opacity: 0.33;
+      animation: shine-coin 1.2s linear 1;
+    }
+
+    @keyframes shine-coin {
+      0% {
+        opacity: 0.0;
+        transform: translate(-50%, -50%) rotate(25deg) scale(0.9);
+      }
+      40% {
+        opacity: 0.32;
+        transform: translate(-50%, -50%) rotate(25deg) scale(1.05);
+      }
+      100% {
+        opacity: 0.0;
+        transform: translate(-50%, -50%) rotate(25deg) scale(1.25);
+      }
+    }
+
+    .banner-image-link:active .banner-imagebonus {
+      transform: scale(0.97) rotateY(-6deg) rotateX(2deg);
+      filter: brightness(1.25) drop-shadow(0 0 18px #00ffc388);
     }
 
     .banner-image {
       flex-shrink: 0;
-      width: 180px; /* Уменьшено с 124px */
+      width: 180px;
       height: 180px;
       object-fit: contain;
-      margin-right: 15px; /* Уменьшено с 20px */
+      margin-right: 15px;
+      animation: pngGlow 1.8s infinite;
+      transition: filter 0.22s cubic-bezier(.4,2,.6,1);
+      background: none;
+      box-shadow: none;
+      max-width: 100%;
+      max-height: 100%;
+    }
+
+    @keyframes pngGlow {
+      0%, 100% {
+        filter: drop-shadow(0 0 0px #7eefffcc) drop-shadow(0 0 0px #2199abcc);
+      }
+      50% {
+        filter: 
+          drop-shadow(0 0 8px #7eefffcc)
+          drop-shadow(0 0 16px #2199ab99);
+      }
     }
 
     .subscribe-btn {
       position: absolute;
-      bottom: 15px; /* Уменьшено с 20px */
+      bottom: 15px;
       right: 15px;
       display: inline-block;
-      padding: 8px 16px; /* Уменьшено с 10px 20px */
+      padding: 8px 16px;
       background-color: #2199abfa;
       color: white;
-      font-size: 14px; /* Уменьшено с 16px */
+      font-size: 14px;
       font-weight: bold;
       text-decoration: none;
-      border-radius: 6px; /* Уменьшено с 8px */
+      border-radius: 6px;
       transition: background-color 0.3s ease;
     }
 
@@ -92,84 +274,59 @@
 
     .pagination {
       position: absolute;
-      bottom: 10px; /* Уменьшено с 12px */
+      bottom: 10px;
       width: 100%;
       text-align: center;
     }
-
     .dot {
       display: inline-block;
-      width: 6px; /* Уменьшено с 8px */
-      height: 6px;
-      margin: 0 3px; /* Уменьшено с 4px */
-      background-color: #bbb;
+      width: 8px;
+      height: 8px;
+      margin: 0 3px;
+      background-color: #ffffff;
       border-radius: 50%;
       cursor: pointer;
       transition: background-color 0.3s;
     }
 
     .dot.active {
-      background-color: #717171;
+      background-color: #2199abfa;
     }
 
     @media (max-width: 768px) {
-      .carousel {
-        max-width: 95%;
-      }
-      
-      .banner-wrapper {
-        height: 120px; /* Уменьшено с 140px */
-        padding: 12px; /* Уменьшено с 15px */
-      }
-      
-      .banner-left {
-        font-size: 15px; /* Уменьшено с 16px */
-        padding-right: 12px; /* Уменьшено с 15px */
-      }
-
-      .banner-image {
-        width: 110px; /* Уменьшено с 80px */
-        height: 110px;
-        margin-right: 12px; /* Уменьшено с 15px */
-      }
-      
-      .banner-content {
-        padding-right: 120px; /* Уменьшено с 130px */
-      }
-      
-      .subscribe-btn {
-        padding: 7px 14px; /* Уменьшено с 8px 16px */
-        font-size: 13px; /* Уменьшено с 14px */
-        bottom: 12px; /* Уменьшено с 15px */
-      }
+      .carousel { width: 100%; max-width: none; }
+      .banner-wrapper { height: 120px; padding: 12px; }
+      .banner-left { font-size: 15px; padding-right: 12px; }
+      .banner-image { width: 110px; height: 110px; margin-right: 12px; }
+      .banner-content { padding-right: 120px; }
+      .subscribe-btn { padding: 7px 14px; font-size: 13px; bottom: 12px; }
+      .banner-image-link { width: 75px; height: 75px; }
     }
 
     @media (max-width: 480px) {
-      .banner-wrapper {
-        height: 100px; /* Уменьшено с 120px */
-        padding: 8px; /* Уменьшено с 10px */
-      }
-      
-      .banner-left {
-        font-size: 13px; /* Уменьшено с 14px */
-        padding-right: 8px; /* Уменьшено с 10px */
-      }
+      .banner-wrapper { height: 100px; padding: 8px; }
+      .banner-left { font-size: 13px; padding-right: 8px; }
+      .banner-image { width: 36px; height: 36px; margin-right: 8px; }
+      .banner-content { padding-right: 64px; }
+      .subscribe-btn { padding: 5px 10px; font-size: 11px; bottom: 8px; right: 8px; }
+      .banner-image-link { width: 24px; height: 24px; }
+    }
 
-      .banner-image {
-        width: 50px; /* Уменьшено с 60px */
-        height: 50px;
-        margin-right: 8px; /* Уменьшено с 10px */
+    @media (max-width: 600px) {
+      #banner2 .hackbonus-block,
+      #banner2 .hackbonus-title,
+      #banner2 .hackbonus-label,
+      #banner2 .hackbonus-list,
+      #banner2 .hackbonus-list li,
+      #banner2 .hackbonus-emoji,
+      #banner2 .hackbonus-point {
+        font-size: 13px !important;
       }
-      
-      .banner-content {
-        padding-right: 90px; /* Уменьшено с 110px */
+      #banner2 .hackbonus-title {
+        font-size: 15px !important;
       }
-      
-      .subscribe-btn {
-        padding: 5px 10px; /* Уменьшено с 6px 12px */
-        font-size: 11px; /* Уменьшено с 12px */
-        bottom: 8px; /* Уменьшено с 10px */
-        right: 8px; /* Уменьшено с 10px */
+      #banner2 .hackbonus-label {
+        font-size: 12px !important;
       }
     }
   </style>
@@ -178,56 +335,64 @@
 
 <div class="carousel" id="carousel">
   <div class="slides" id="slides">
-    
-    <!-- Баннер 1 -->
+    <!-- banner2 with Hack Bonus -->
+    <div class="slide" id="banner2">
+      <div class="banner-wrapper banner2-bg">
+        <div class="banner-content banner-content-bonus">
+          <div class="hackbonus-block">
+            <div class="hackbonus-title">
+              Hack Bonus —
+              <span class="hackbonus-label">Бонусная программа</span>
+            </div>
+            <ul class="hackbonus-list">
+              <li>
+                <span class="hackbonus-emoji">💸</span>
+                Начисляем <span class="hackbonus-point">10%</span> бонусами за каждый платёж за услуги или пополнение баланса
+              </li>
+              <li>
+                <span class="hackbonus-emoji">🎁</span>
+                <span class="hackbonus-point">+3 Hack points</span>всем новым пользователям
+              </li>
+              <li>
+                <span class="hackbonus-emoji">🪙</span>
+                Оплачивайте до <span class="hackbonus-point">25%</span> стоимости заказа бонусами
+              </li>
+            </ul>
+          </div>
+          <a href="https://likevps.net/blog/bonus" target="_blank" class="banner-image-link">
+            <img class="banner-imagebonus" src="./bonus.png" alt="Бонусное изображение" />
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- banner1 with PNG contour animation -->
     <div class="slide" id="banner1">
-      <div class="banner-wrapper">
+      <div class="banner-wrapper banner1-bg">
         <div class="banner-content">
-          <div class="banner-left">Будьте в курсе новостей и скидок — подпишитесь на наш Telegram-канал</div>
-          <img class="banner-image" src="./картинка.png" alt="Дополнительная картинка" />
+          <div class="banner-left">
+            Будьте в курсе новостей и скидок — подпишитесь на наш Telegram-канал
+          </div>
+          <img class="banner-image" src="./картинка.png" alt="Дополнительное изображение" />
         </div>
         <a class="subscribe-btn" href="http://t.me/likevps" target="_blank">Подписаться</a>
       </div>
     </div>
-
-    <!-- Баннер 2 -->
-    <div class="slide" id="banner2">
-      <a href="https://likevps.net/vps" target="_blank">
-        <img src="./image2.png" alt="Баннер 2" style="max-height: 138px; width: auto; margin: 0 auto; display: block;" />
-      </a>
-    </div>
-
   </div>
   <div class="pagination" id="pagination"></div>
 </div>
 
 <script>
   const slidesContainer = document.getElementById('slides');
+  const slides = document.querySelectorAll('.slide');
   const pagination = document.getElementById('pagination');
-  const banner2 = document.querySelector('#banner2 img');
   let index = 0;
   let interval;
-
-  banner2.addEventListener('error', () => {
-    document.getElementById('banner2')?.remove();
-    initCarousel();
-  });
-
-  if (banner2.complete) {
-    if (!banner2.naturalWidth) {
-      document.getElementById('banner2')?.remove();
-    }
-    initCarousel();
-  } else {
-    banner2.addEventListener('load', initCarousel);
-  }
 
   function updateSlidePosition() {
     slidesContainer.style.transform = `translateX(-${index * 100}%)`;
     const dots = document.querySelectorAll('.dot');
-    dots.forEach((dot, i) => {
-      dot.classList.toggle('active', i === index);
-    });
+    dots.forEach((dot, i) => dot.classList.toggle('active', i === index % 2));
   }
 
   function createPagination(totalSlides) {
@@ -237,8 +402,7 @@
       return;
     }
     pagination.style.display = 'block';
-
-    for (let i = 0; i < totalSlides; i++) {
+    for (let i = 0; i < 2; i++) {
       const dot = document.createElement('span');
       dot.classList.add('dot');
       if (i === 0) dot.classList.add('active');
@@ -250,22 +414,44 @@
     }
   }
 
-  function startCarousel(totalSlides) {
+  function startCarousel() {
     if (interval) clearInterval(interval);
-    if (totalSlides <= 1) return;
-
     interval = setInterval(() => {
-      index = (index + 1) % totalSlides;
+      index = (index + 1) % 4;
       updateSlidePosition();
-    }, 5000);
+    }, 7000);
   }
 
   function initCarousel() {
-    const totalSlides = slidesContainer.children.length;
-    index = 0;
-    createPagination(totalSlides);
+    const banner1 = document.getElementById('banner1');
+    const banner2 = document.getElementById('banner2');
+    slidesContainer.innerHTML = '';
+    slidesContainer.appendChild(banner2.cloneNode(true));
+    slidesContainer.appendChild(banner1.cloneNode(true));
+    slidesContainer.appendChild(banner2.cloneNode(true));
+    slidesContainer.appendChild(banner1.cloneNode(true));
+    createPagination(2);
     updateSlidePosition();
-    startCarousel(totalSlides);
+    startCarousel();
+  }
+
+  const banner2Img = document.querySelector('#banner2 img');
+  banner2Img?.addEventListener('error', () => {
+    const banner1 = document.getElementById('banner1');
+    slidesContainer.innerHTML = '';
+    slidesContainer.appendChild(banner1.cloneNode(true));
+    slidesContainer.appendChild(banner1.cloneNode(true));
+    createPagination(1);
+  });
+
+  if (banner2Img?.complete) {
+    if (!banner2Img.naturalWidth) {
+      const banner1 = document.getElementById('banner1');
+      slidesContainer.innerHTML = '';
+      slidesContainer.appendChild(banner1.cloneNode(true));
+      slidesContainer.appendChild(banner1.cloneNode(true));
+      createPagination(1);
+    }
   }
 
   initCarousel();
